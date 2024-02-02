@@ -1,0 +1,73 @@
+1. 
+. docker pull mongo
+	Using default tag: latest
+	latest: Pulling from library/mongo
+	44ba2882f8eb: Pull complete
+	ed0ba5360de5: Pull complete
+	a27add3570ee: Pull complete
+	fcfb29d27eb4: Pull complete
+	ebd1e00f8db0: Pull complete
+	09a8f7a63d00: Pull complete
+	4c432db3ad79: Pull complete
+	9afa5905ede6: Pull complete
+	8ca4cc7cbb16: Pull complete
+	Digest: sha256:31bf43c4959c283733a004b0a3a9c4ddc52efafb4cf9a38e42d2da93e9a72546
+	Status: Downloaded newer image for mongo:latest
+	docker.io/library/mongo:latest
+	What's Next?
+        View a summary of image vulnerabilities and recommendations → docker scout quickview mongo
+. docker images
+	9ff7567898887b8b2f90ef218c88eafa69e0e74c39c4bc97ee0f56d6f9286430
+. docker ps
+	9ff756789888   mongo:latest   "docker-entrypoint.s…"   2 minutes ago   Up 2 minutes   27017/tcp   zealous_galois
+. docker run -d --name mongo_container mongo:latest
+	158da27375014582c8adfae69e7c24074513a02c5ed08df40b7f97a7979ee973
+. docker start mongo_container
+	mongo_container
+. docker exec -it mongo_container bash
+. root@158da2737501:/# mongosh
+. use s1_pc1
+	switched to db s1_pc1
+. db
+. db.createCollection('Customers');
+	{ ok: 1 }
+. db.Customers.insertOne({name:"ABC",age:25,address:{houseNumber:1,city:"London"},phoneNumber:9123456789,email:"abc@gmail.com"});
+	{
+	  acknowledged: true,
+	  insertedId: ObjectId("6503fc67b53a2002e8a6d85d")
+	}
+. db.Customers.insertMany([{name:"DEF",age:26,address:{houseNumber:2,city:"London"},phoneNumber:8123456789,email:"def@gmail.com"},{name:"GHI",age:27,address:{houseNumber:3,city:"London"},phoneNumber:8976543210,email:"ghi@gmail.com"}]);
+	{
+	  acknowledged: true,
+	  insertedIds: {
+	    '0': ObjectId("6503fd5eb53a2002e8a6d85e"),
+	    '1': ObjectId("6503fd5eb53a2002e8a6d85f")
+	  }
+	}
+. db.Customers.find().pretty();
+	[
+	  {
+	    _id: ObjectId("6503fc67b53a2002e8a6d85d"),
+	    name: 'ABC',
+	    age: 25,
+	    address: { houseNumber: 1, city: 'London' },
+	    phoneNumber: 9123456789,
+	    email: 'abc@gmail.com'
+	  },
+	  {
+	    _id: ObjectId("6503fd5eb53a2002e8a6d85e"),
+	    name: 'DEF',
+	    age: 26,
+	    address: { houseNumber: 2, city: 'London' },
+	    phoneNumber: 8123456789,
+	    email: 'def@gmail.com'
+	  },
+	  {
+	    _id: ObjectId("6503fd5eb53a2002e8a6d85f"),
+	    name: 'GHI',
+	    age: 27,
+	    address: { houseNumber: 3, city: 'London' },
+	    phoneNumber: 8976543210,
+	    email: 'ghi@gmail.com'
+	  }
+	]
